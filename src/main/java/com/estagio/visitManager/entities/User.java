@@ -1,11 +1,18 @@
 package com.estagio.visitManager.entities;
 
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_user") //banco h2 tem como palavra reservada User;
+
 public class User implements  Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String cpf;
@@ -15,8 +22,10 @@ public class User implements  Serializable{
     private Boolean isAtivo =true;
 
     private Boolean isAdmin =false;
-    /*private Timestamp createdAt =
-            new Timestamp(System.currentTimeMillis()); */
+    private Timestamp createdAt ;  //  new Timestamp(System.currentTimeMillis())
+
+
+
     public User(Long id, String name, String cpf, String email, String senha, Boolean isAtivo, Boolean isAdmin) {
         this.id = id;
         this.name = name;
@@ -25,6 +34,7 @@ public class User implements  Serializable{
         this.senha = senha;
         this.isAtivo = isAtivo;
         this.isAdmin = isAdmin;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -83,25 +93,13 @@ public class User implements  Serializable{
         isAdmin = admin;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+    public Timestamp getCreatedAt() {
+        return createdAt =  new Timestamp(System.currentTimeMillis());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
-
-
-
-
-
-
-
 
 
 }
