@@ -1,4 +1,4 @@
-package com.estagio.visitManager.resources;
+package com.estagio.visitManager.controllers;
 import com.estagio.visitManager.entities.Setor;
 import com.estagio.visitManager.services.SetorService;
 

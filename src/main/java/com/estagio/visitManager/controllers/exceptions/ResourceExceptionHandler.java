@@ -1,4 +1,4 @@
-package com.estagio.visitManager.resources.exceptions;
+package com.estagio.visitManager.controller.exceptions;
 
 import com.estagio.visitManager.services.exceptions.DatabaseException;
 import com.estagio.visitManager.services.exceptions.ResourceNotFoundException;

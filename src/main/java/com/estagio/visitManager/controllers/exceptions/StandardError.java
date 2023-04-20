@@ -1,4 +1,4 @@
-package com.estagio.visitManager.resources.exceptions;
+package com.estagio.visitManager.controller.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

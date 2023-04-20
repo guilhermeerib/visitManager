@@ -1,9 +1,8 @@
-package com.estagio.visitManager.resources;
+package com.estagio.visitManager.controllers;
 
 import com.estagio.visitManager.entities.Usuario;
 import com.estagio.visitManager.services.UsuarioService;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
