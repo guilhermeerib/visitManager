@@ -2,6 +2,7 @@ package com.estagio.visitManager.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -25,17 +26,21 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private String email;
     private String senha;
+
+    @JsonProperty("isAtivo")
     private Boolean isAtivo;
+
+    @JsonProperty("isAdmin")
     private Boolean isAdmin;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp createdAt;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Setor> setores = new ArrayList<>();
+    private List<Setor> setores;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Pessoa> pessoas = new ArrayList<>();
+    private List<Pessoa> pessoas;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Registro> registros = new ArrayList<>();
+    private List<Registro> registros;
 
     //Construtores
     public Usuario() {
@@ -138,19 +143,6 @@ public class Usuario implements Serializable {
 
     public void setRegistros(List<Registro> registros) {
         this.registros = registros;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 

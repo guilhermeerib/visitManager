@@ -2,9 +2,9 @@ package com.estagio.visitManager.services;
 
 import com.estagio.visitManager.entities.Usuario;
 import com.estagio.visitManager.repositories.UsuarioRepository;
+
 import com.estagio.visitManager.services.exceptions.DatabaseException;
 import com.estagio.visitManager.services.exceptions.ResourceNotFoundException;
-
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,11 +29,11 @@ public class UsuarioService {
     }
 
     //Controlador para inserir os dados na entidade Usuário;
-    public Usuario insert(Usuario obj) {
+    public Usuario criarUsuario(Usuario obj) {
         return repository.save(obj);
     }
 
-    public void excluirUsuario(Long id) {
+    public void  excluirUsuario(Long id) {
         try {
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {

@@ -111,16 +111,4 @@ public class Registro implements Serializable {
         this.usuario = usuario;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Registro registro = (Registro) o;
-        return Objects.equals(id, registro.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

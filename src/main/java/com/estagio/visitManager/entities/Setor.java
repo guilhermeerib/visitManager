@@ -1,5 +1,7 @@
 package com.estagio.visitManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,25 +18,28 @@ public class Setor implements Serializable {
     private Long id;
     private String nome;
     private String descricao;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
+    @JsonIgnore
     private Usuario usuario;
     @OneToMany(mappedBy = "setor", fetch = FetchType.LAZY)
-    private List<Registro> registros= new ArrayList<>();
+    @JsonIgnore
+    private List<Registro> registros;
 
 
     public Setor() {
     }
 
-    public Setor(Long id, String nome, String descricao,
-                 Timestamp createdAt, Usuario idUsuario) {
+    public Setor(Long id, String nome, String descricao, Timestamp createdAt, Usuario usuario) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.createdAt = createdAt;
-        this.usuario = idUsuario;
+        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -75,21 +80,6 @@ public class Setor implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Setor setor = (Setor) o;
-        return Objects.equals(id, setor.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
 

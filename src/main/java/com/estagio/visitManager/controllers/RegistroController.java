@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/registros")
-public class RegistroResource {
+public class RegistroController {
     @Autowired
     private RegistroService service;
     @GetMapping

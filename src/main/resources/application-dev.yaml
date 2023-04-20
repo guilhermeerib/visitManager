@@ -1,11 +1,21 @@
-spring.datasource.url=jdbc:postgresql://localhost:5432/visitmanager
-spring.datasource.username=guilherme
-spring.datasource.password=2102@guisio
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/visitmanager
+    username: guilherme
+    password: 2102@guisio
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-
-#jwt.secret=MYJWTSECRET
-#jwt.expiration=3600000
+jwt:
+  secret:
+    MYJWTSECRET
+  expiration:
+    3600000

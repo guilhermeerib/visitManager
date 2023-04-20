@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/usuarios")
-public class UsuarioResource {
+public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
@@ -30,15 +30,15 @@ public class UsuarioResource {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> insert(@RequestBody Usuario obj) {
-        obj = service.insert(obj);
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario obj) {
+        obj = service.criarUsuario(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
     @PostMapping(value = "/lista")
     public ResponseEntity insertMany(@RequestBody List<Usuario> obj) {
-        obj.stream().forEach(usuario -> service.insert(usuario));
+        obj.stream().forEach(usuario -> service.criarUsuario(usuario));
         return ResponseEntity.ok().build();
     }
 
