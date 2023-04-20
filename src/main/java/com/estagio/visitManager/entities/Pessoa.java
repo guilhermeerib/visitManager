@@ -1,6 +1,7 @@
 package com.estagio.visitManager.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -8,33 +9,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 @Entity
-public class Setor implements Serializable {
-    private  static  final  long serialVersionUID = 1L;
+@Table
+public class Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
-    private String descricao;
+    @Column(nullable = false, unique = true)
+    @Pattern(regexp = "\\d{11}", message = "CPF invalido")
+    private String cpf;
+    @Column(nullable = false)
+    private Boolean isAtivo;
+    @Column(nullable = false)
     private Timestamp createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
-    @OneToMany(mappedBy = "setor", fetch = FetchType.LAZY)
-    private List<Registro> registros= new ArrayList<>();
+    @OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY)
+    private List<Registro> registros = new ArrayList<>();
 
 
-    public Setor() {
-    }
+    //construtores
+    public Pessoa() {
 
-    public Setor(Long id, String nome, String descricao,
-                 Timestamp createdAt, Usuario idUsuario) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.createdAt = createdAt;
-        this.usuario = idUsuario;
     }
 
     public Long getId() {
@@ -53,12 +55,20 @@ public class Setor implements Serializable {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Boolean getAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        isAtivo = ativo;
     }
 
     public Timestamp getCreatedAt() {
@@ -77,19 +87,26 @@ public class Setor implements Serializable {
         this.usuario = usuario;
     }
 
+    public List<Registro> getRegistros() {
+        return registros;
+    }
 
+    public void setRegistros(List<Registro> registros) {
+        this.registros = registros;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Setor setor = (Setor) o;
-        return Objects.equals(id, setor.id);
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(id, pessoa.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-}
 
+
+}
