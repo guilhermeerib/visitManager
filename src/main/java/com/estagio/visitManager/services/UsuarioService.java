@@ -17,25 +17,25 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository usuarioRepository;
 
     public List<Usuario> findAll() {
-        return repository.findAll();
+        return usuarioRepository.findAll();
     }
 
     public Usuario findById(Long id) {
-        Optional<Usuario> obj = repository.findById(id);
+        Optional<Usuario> obj = usuarioRepository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     //Controlador para inserir os dados na entidade Usuário;
     public Usuario criarUsuario(Usuario obj) {
-        return repository.save(obj);
+        return usuarioRepository.save(obj);
     }
 
     public void  excluirUsuario(Long id) {
         try {
-            repository.deleteById(id);
+            usuarioRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e){
@@ -46,9 +46,9 @@ public class UsuarioService {
     //Controlado: método para atualizar um usuário já existente
     public Usuario atualizarUsuario(Long id, Usuario obj) {
         try {
-            Usuario entity = repository.getReferenceById(id);
+            Usuario entity = usuarioRepository.getReferenceById(id);
             atualizarDados(entity, obj);
-            return repository.save(entity);
+            return usuarioRepository.save(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
         }

@@ -1,14 +1,13 @@
 package com.estagio.visitManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 
 @Entity
 @Table
@@ -17,26 +16,36 @@ public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String nome;
-    @Column(nullable = false, unique = true)
-    @Pattern(regexp = "\\d{11}", message = "CPF invalido")
+//    @Column(nullable = false, unique = true)
+//    @Pattern(regexp = "\\d{11}", message = "CPF invalido")
     private String cpf;
-    @Column(nullable = false)
-    private Boolean isAtivo;
-    @Column(nullable = false)
+//    @Column(nullable = true)
+    private Boolean isAtivo = true;
+//    @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_usuario")
+    @JsonIgnore
     private Usuario usuario;
     @OneToMany(mappedBy = "pessoa")
     private List<Registro> registros;
 
 
     //construtores
-    public Pessoa() {
 
+    public Pessoa() {
+    }
+
+    public Pessoa(Long id, String nome, String cpf,Boolean isAtivo,Timestamp createdAt) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.isAtivo = isAtivo;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -86,13 +95,5 @@ public class Pessoa implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
-    public List<Registro> getRegistros() {
-        return registros;
-    }
-
-    public void setRegistros(List<Registro> registros) {
-        this.registros = registros;
-    }
-
 }
+

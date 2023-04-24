@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Setor implements Serializable {
@@ -18,6 +16,7 @@ public class Setor implements Serializable {
     private Long id;
     private String nome;
     private String descricao;
+    private Boolean isAtivo;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp createdAt;
@@ -34,12 +33,15 @@ public class Setor implements Serializable {
     public Setor() {
     }
 
-    public Setor(Long id, String nome, String descricao, Timestamp createdAt, Usuario usuario) {
+
+    public Setor(Long id, String nome, String descricao,Boolean isAtivo, Timestamp createdAt, Usuario usuario) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.isAtivo = isAtivo;
         this.createdAt = createdAt;
         this.usuario = usuario;
+
     }
 
     public Long getId() {
@@ -64,6 +66,14 @@ public class Setor implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Boolean getAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        isAtivo = ativo;
     }
 
     public Timestamp getCreatedAt() {

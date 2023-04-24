@@ -1,5 +1,7 @@
 package com.estagio.visitManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,25 +17,29 @@ public class Registro implements Serializable {
     private Long id;
     private String descricao;
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp horaEntrada;
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp horaSaida;
     @Column(nullable = false)
-    private Boolean isAtivo;
+    private Boolean isAtivo =true;
     @ManyToOne
     @JoinColumn(name = "id_pessoa")
+    @JsonIgnore
     private Pessoa pessoa;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_setor")
     private Setor setor;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
 
     public Registro() {
     }
-
     public Registro(Long id, String descricao, Timestamp horaEntrada,
                     Timestamp horaSaida, Boolean isAtivo, Pessoa pessoa,
                     Setor setor, Usuario usuario) {
