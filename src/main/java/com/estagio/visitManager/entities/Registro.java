@@ -7,17 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Registro implements Serializable {
+public class Registro {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,19 +31,19 @@ public class Registro implements Serializable {
     private Timestamp horaSaida;
 
     @Column(nullable = false)
-    private Boolean isAtivo =true;
+    private Boolean isAtivo = true;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_setor")
-    
+
     private Setor setor;
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;

@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,9 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +26,7 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @Column(nullable = false)
@@ -46,14 +43,16 @@ public class Usuario implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "UTC")
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario",targetEntity = Setor.class)
     private List<Setor> setores;
 
-    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", targetEntity = Pessoa.class)
     private List<Pessoa> pessoas;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", targetEntity = Registro.class)
     private List<Registro> registros;
 
 
